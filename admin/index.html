@@ -127,6 +127,24 @@ input[type=checkbox] { width:16px; height:16px; accent-color:var(--red); cursor:
 .prod-card-name { font-size:13px; font-weight:700; margin-bottom:2px; }
 .prod-card-cat  { font-size:11px; color:var(--light); margin-bottom:10px; }
 .prod-card-actions { display:flex; gap:6px; }
+.editable { cursor:text; border-radius:4px; padding:1px 4px; margin:-1px -4px; transition:background .15s; }
+.editable:hover { background:rgba(136,5,30,.06); }
+.editable.is-editing { padding:0; margin:0; background:transparent; }
+.editable input, .editable select { width:100%; font:inherit; color:inherit; background:var(--cream); border:1.5px solid var(--red); border-radius:4px; padding:2px 6px; outline:none; }
+.prod-card-name.editable input { font-weight:700; font-size:13px; }
+.prod-card-coll.editable select { font-size:10px; font-weight:700; letter-spacing:1px; text-transform:uppercase; color:var(--red); }
+.prod-card-cat.editable select { font-size:11px; color:var(--mid); }
+.prod-bulk-queue { display:none; margin-bottom:16px; }
+.prod-bulk-queue.has-items { display:block; }
+.prod-bulk-queue-label { font-size:11px; font-weight:700; letter-spacing:1px; text-transform:uppercase; color:var(--light); margin-bottom:10px; }
+.prod-bulk-list { display:flex; flex-direction:column; gap:8px; max-height:220px; overflow-y:auto; }
+.prod-bulk-item { display:flex; align-items:center; gap:10px; padding:8px; background:var(--cream); border-radius:8px; }
+.prod-bulk-item img { width:48px; height:64px; object-fit:cover; border-radius:4px; flex-shrink:0; background:var(--cream2); }
+.prod-bulk-item input { flex:1; font-size:13px; padding:6px 10px; border:1.5px solid var(--cream2); border-radius:6px; background:var(--white); }
+.prod-bulk-item input::placeholder { color:var(--light); font-style:italic; }
+.prod-bulk-item .bulk-remove { background:none; border:none; color:var(--light); cursor:pointer; font-size:16px; padding:4px 6px; line-height:1; }
+.prod-bulk-item .bulk-remove:hover { color:var(--red); }
+.prod-bulk-count { font-size:12px; color:var(--mid); margin-top:8px; }
 
 /* ── Modal ── */
 .modal-overlay { display:none; position:fixed; inset:0; background:rgba(0,0,0,.5); z-index:200; align-items:center; justify-content:center; padding:20px; }
@@ -519,19 +537,25 @@ input[type=checkbox] { width:16px; height:16px; accent-color:var(--red); cursor:
       <div class="img-preview-wrap" id="prodImgWrap" style="display:none">
         <img id="prodImgPreview" src="" alt="" />
         <label class="btn btn-secondary btn-sm change-label" style="cursor:pointer">
-          Change Image <input type="file" id="prodImgFile" accept="image/*" style="display:none">
+          Change Image <input type="file" id="prodImgFile" accept="image/*" multiple style="display:none">
         </label>
       </div>
       <label class="upload-zone" id="prodUploadZone">
-        <input type="file" id="prodImgFileNew" accept="image/*" style="display:none">
+        <input type="file" id="prodImgFileNew" accept="image/*" multiple style="display:none">
         <div class="upload-icon">📷</div>
-        <strong>Click to upload product image</strong>
-        <p>Portrait 3:4 ratio · JPG/PNG · max 20 MB</p>
+        <strong>Click to upload product image(s)</strong>
+        <p>Portrait 3:4 ratio · JPG/PNG · max 20 MB · select multiple for bulk import</p>
       </label>
+      <div class="prod-bulk-queue" id="prodBulkQueue">
+        <div class="prod-bulk-queue-label">Import queue</div>
+        <div class="prod-bulk-list" id="prodBulkList"></div>
+        <div class="prod-bulk-count" id="prodBulkCount"></div>
+        <button type="button" class="btn btn-secondary btn-sm" id="prodAddMoreBtn" style="display:none;margin-top:10px">+ Add more images</button>
+      </div>
       <div class="upload-progress" id="prodProgress"><div class="upload-progress-bar" id="prodBar"></div></div>
       <div style="height:16px"></div>
       <div class="form-row">
-        <div><label>Product Name</label><input type="text" id="prodName" /></div>
+        <div><label>Product Name <span id="prodNameHint" style="font-weight:400;color:var(--light);font-size:11px">(first product only when importing multiple)</span></label><input type="text" id="prodName" placeholder="Optional for bulk — edit on card later" /></div>
         <div><label>Collection</label>
           <select id="prodColl"></select>
         </div>
@@ -1045,6 +1069,10 @@ async function loadProducts() {
   renderProducts();
 }
 
+function escHtml(s) {
+  return String(s ?? '').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');
+}
+
 function renderProducts() {
   const grid = document.getElementById('prodGrid');
   grid.innerHTML = '';
@@ -1059,19 +1087,113 @@ function renderProducts() {
   list.forEach(p => {
     const div = document.createElement('div');
     div.className = 'prod-card';
+    const nameDisplay = p.name ? escHtml(p.name) : '<span style="color:var(--light);font-style:italic">Untitled</span>';
     div.innerHTML = `
-      ${p.image_url ? `<img src="${p.image_url}" alt="${p.name}" loading="lazy">` : '<div style="aspect-ratio:3/4;background:var(--cream2)"></div>'}
+      ${p.image_url ? `<img src="${escHtml(p.image_url)}" alt="${escHtml(p.name || 'Product')}" loading="lazy">` : '<div style="aspect-ratio:3/4;background:var(--cream2)"></div>'}
       <div class="prod-card-body">
-        <div class="prod-card-coll">${p.collection}</div>
-        <div class="prod-card-name">${p.name}</div>
-        <div class="prod-card-cat">${p.category}${p.new_arrival ? ' · <span style="color:var(--red)">New</span>' : ''}</div>
+        <div class="prod-card-coll editable" data-id="${p.id}" data-field="collection" title="Click to edit">${escHtml(p.collection)}</div>
+        <div class="prod-card-name editable" data-id="${p.id}" data-field="name" title="Click to edit">${nameDisplay}</div>
+        <div class="prod-card-cat"><span class="editable" data-id="${p.id}" data-field="category" title="Click to edit">${escHtml(p.category)}</span>${p.new_arrival ? ' · <span style="color:var(--red)">New</span>' : ''}</div>
         <div class="prod-card-actions">
           <button class="btn btn-secondary btn-sm" onclick="openProdModal(${p.id})" style="padding:5px 10px">✏️</button>
-          <button class="btn btn-danger btn-sm"    onclick="deleteProd(${p.id},'${p.name.replace(/'/g,"\\'")}') " style="padding:5px 10px">🗑️</button>
+          <button class="btn btn-danger btn-sm"    onclick="deleteProd(${p.id},'${String(p.name || 'Untitled').replace(/'/g,"\\'")}') " style="padding:5px 10px">🗑️</button>
         </div>
       </div>`;
     grid.appendChild(div);
   });
+}
+
+document.getElementById('prodGrid').addEventListener('click', e => {
+  const el = e.target.closest('.editable');
+  if (!el || el.classList.contains('is-editing') || el.querySelector('input,select')) return;
+  if (e.target.closest('.prod-card-actions')) return;
+  startInlineEdit(el);
+});
+
+function startInlineEdit(el) {
+  const id = Number(el.dataset.id);
+  const field = el.dataset.field;
+  const product = allProducts.find(p => p.id === id);
+  if (!product) return;
+
+  el.classList.add('is-editing');
+  const prev = field === 'name' ? (product.name || '') : product[field];
+
+  if (field === 'collection') {
+    const sel = document.createElement('select');
+    allCollections.forEach(c => {
+      const opt = document.createElement('option');
+      opt.value = c.name;
+      opt.textContent = c.name;
+      if (c.name === product.collection) opt.selected = true;
+      sel.appendChild(opt);
+    });
+    el.textContent = '';
+    el.appendChild(sel);
+    sel.focus();
+    finishInlineEdit(el, id, field, sel, prev);
+    return;
+  }
+
+  if (field === 'category') {
+    const sel = document.createElement('select');
+    currentCats.forEach(c => {
+      const opt = document.createElement('option');
+      opt.value = c;
+      opt.textContent = c;
+      if (c === product.category) opt.selected = true;
+      sel.appendChild(opt);
+    });
+    el.textContent = '';
+    el.appendChild(sel);
+    sel.focus();
+    finishInlineEdit(el, id, field, sel, prev);
+    return;
+  }
+
+  const input = document.createElement('input');
+  input.type = 'text';
+  input.value = prev;
+  input.placeholder = 'Product name';
+  el.textContent = '';
+  el.appendChild(input);
+  input.focus();
+  input.select();
+  finishInlineEdit(el, id, field, input, prev);
+}
+
+function finishInlineEdit(el, id, field, control, prev) {
+  let done = false;
+
+  const save = async () => {
+    if (done) return;
+    done = true;
+    const value = control.value.trim();
+    if (value === prev) { renderProducts(); return; }
+
+    const { data, error } = await sb.from('products').update({ [field]: value }).eq('id', id).select().single();
+    if (error) { toast('Update failed: ' + error.message, true); renderProducts(); return; }
+    const idx = allProducts.findIndex(p => p.id === id);
+    if (idx !== -1) allProducts[idx] = data;
+    renderProducts();
+    toast('Saved.');
+  };
+
+  const cancel = () => { if (!done) renderProducts(); };
+
+  if (control.tagName === 'SELECT') {
+    control.addEventListener('change', save);
+    control.addEventListener('keydown', e => {
+      if (e.key === 'Escape') { e.preventDefault(); cancel(); }
+    });
+    return;
+  }
+
+  control.addEventListener('keydown', e => {
+    if (e.key === 'Enter') { e.preventDefault(); save(); }
+    if (e.key === 'Escape') { e.preventDefault(); cancel(); }
+  });
+  control.addEventListener('blur', () => { setTimeout(save, 120); });
 }
 
 document.getElementById('catPills').querySelectorAll('.pill').forEach(p => {
@@ -1083,20 +1205,86 @@ document.getElementById('catPills').querySelectorAll('.pill').forEach(p => {
 
 /* Product modal */
 let prodImgFile = null;
+let prodQueue = [];
+
+function clearProdQueue() {
+  prodQueue.forEach(item => { if (item.previewUrl) URL.revokeObjectURL(item.previewUrl); });
+  prodQueue = [];
+  renderProdQueue();
+}
+
+function updateProdSaveLabel() {
+  const id = document.getElementById('prodId').value;
+  const btn = document.getElementById('prodSaveBtn');
+  if (id) { btn.textContent = 'Save Product'; return; }
+  const n = prodQueue.length;
+  btn.textContent = n > 1 ? `Save ${n} Products` : 'Save Product';
+}
+
+function renderProdQueue() {
+  const wrap = document.getElementById('prodBulkQueue');
+  const list = document.getElementById('prodBulkList');
+  const count = document.getElementById('prodBulkCount');
+  const isEdit = !!document.getElementById('prodId').value;
+
+  if (isEdit || !prodQueue.length) {
+    wrap.classList.remove('has-items');
+    list.innerHTML = '';
+    count.textContent = '';
+    document.getElementById('prodAddMoreBtn').style.display = 'none';
+    updateProdSaveLabel();
+    return;
+  }
+
+  wrap.classList.add('has-items');
+  document.getElementById('prodAddMoreBtn').style.display = 'inline-flex';
+  const firstName = document.getElementById('prodName').value;
+  list.innerHTML = prodQueue.map((item, i) => `
+    <div class="prod-bulk-item" data-idx="${i}">
+      <img src="${item.previewUrl}" alt="">
+      <input type="text" class="bulk-name-input" data-idx="${i}" value="${escHtml(i === 0 ? firstName : (item.name || ''))}" placeholder="${i === 0 ? 'First product name (optional)' : 'Leave empty — edit on card later'}" />
+      <button type="button" class="bulk-remove" data-idx="${i}" title="Remove">✕</button>
+    </div>`).join('');
+
+  count.textContent = `${prodQueue.length} image${prodQueue.length === 1 ? '' : 's'} ready · shared collection, category & flags apply to all`;
+
+  list.querySelectorAll('.bulk-name-input').forEach(inp => {
+    inp.addEventListener('input', e => {
+      const idx = Number(e.target.dataset.idx);
+      prodQueue[idx].name = e.target.value;
+      if (idx === 0) document.getElementById('prodName').value = e.target.value;
+    });
+  });
+  list.querySelectorAll('.bulk-remove').forEach(btn => {
+    btn.addEventListener('click', e => {
+      e.stopPropagation();
+      const idx = Number(btn.dataset.idx);
+      URL.revokeObjectURL(prodQueue[idx].previewUrl);
+      prodQueue.splice(idx, 1);
+      if (!prodQueue.length) {
+        document.getElementById('prodUploadZone').style.display = 'block';
+      }
+      renderProdQueue();
+    });
+  });
+  updateProdSaveLabel();
+}
 
 document.getElementById('addProductBtn').addEventListener('click', () => openProdModal(null));
 
 function openProdModal(id) {
   const p = id ? allProducts.find(x => x.id === id) : null;
-  document.getElementById('prodModalTitle').textContent = p ? 'Edit Product' : 'Add Product';
+  document.getElementById('prodModalTitle').textContent = p ? 'Edit Product' : 'Add Product(s)';
   document.getElementById('prodId').value       = p?.id || '';
   document.getElementById('prodName').value     = p?.name || '';
+  document.getElementById('prodNameHint').style.display = p ? 'none' : 'inline';
   syncProdCollSelect(p?.collection || allCollections[0]?.name || '');
   syncProdCatSelect(p?.category || currentCats[0] || 'Necklaces');
   document.getElementById('prodDesc').value     = p?.description || '';
   document.getElementById('prodFeatured').checked = !!p?.featured;
   document.getElementById('prodNew').checked      = !!p?.new_arrival;
   prodImgFile = null;
+  clearProdQueue();
 
   const wrap = document.getElementById('prodImgWrap');
   const zone = document.getElementById('prodUploadZone');
@@ -1106,12 +1294,44 @@ function openProdModal(id) {
   } else {
     wrap.style.display = 'none'; zone.style.display = 'block';
   }
+  updateProdSaveLabel();
   document.getElementById('prodModal').classList.add('open');
 }
 
-document.getElementById('prodImgFile').addEventListener('change',    e => setProdImg(e.target.files[0]));
-document.getElementById('prodImgFileNew').addEventListener('change', e => setProdImg(e.target.files[0]));
-document.getElementById('prodUploadZone').addEventListener('click',  () => document.getElementById('prodImgFileNew').click());
+document.getElementById('prodName').addEventListener('input', e => {
+  if (prodQueue.length) {
+    prodQueue[0].name = e.target.value;
+    const firstInput = document.querySelector('.bulk-name-input[data-idx="0"]');
+    if (firstInput && firstInput !== document.activeElement) firstInput.value = e.target.value;
+  }
+});
+
+document.getElementById('prodImgFile').addEventListener('change', e => {
+  const id = document.getElementById('prodId').value;
+  if (id) setProdImg(e.target.files[0]);
+  else addProdFiles(e.target.files);
+  e.target.value = '';
+});
+document.getElementById('prodImgFileNew').addEventListener('change', e => {
+  addProdFiles(e.target.files);
+  e.target.value = '';
+});
+document.getElementById('prodUploadZone').addEventListener('click', () => document.getElementById('prodImgFileNew').click());
+document.getElementById('prodAddMoreBtn').addEventListener('click', () => document.getElementById('prodImgFileNew').click());
+
+function addProdFiles(fileList) {
+  if (!fileList?.length) return;
+  Array.from(fileList).forEach(file => {
+    prodQueue.push({
+      file,
+      previewUrl: URL.createObjectURL(file),
+      name: prodQueue.length === 0 ? document.getElementById('prodName').value : '',
+    });
+  });
+  document.getElementById('prodUploadZone').style.display = prodQueue.length ? 'none' : 'block';
+  document.getElementById('prodImgWrap').style.display = 'none';
+  renderProdQueue();
+}
 
 function setProdImg(file) {
   if (!file) return;
@@ -1121,53 +1341,77 @@ function setProdImg(file) {
   document.getElementById('prodUploadZone').style.display = 'none';
 }
 
+async function uploadProductImage(file) {
+  const ext = (file.name.match(/\.\w+$/) || ['.jpeg'])[0].toLowerCase();
+  const filename = 'product_' + Date.now() + '_' + Math.random().toString(36).slice(2, 8) + ext;
+  const { error } = await sb.storage.from(BUCKET).upload(filename, file, { upsert: true, contentType: file.type || 'image/jpeg' });
+  if (error) throw new Error(error.message);
+  return `${SUPABASE_URL}/storage/v1/object/public/${BUCKET}/${filename}`;
+}
+
 document.getElementById('prodSaveBtn').addEventListener('click', async () => {
   const id   = document.getElementById('prodId').value;
-  const name = document.getElementById('prodName').value.trim();
-  if (!name) { toast('Product name required', true); return; }
   const btn = document.getElementById('prodSaveBtn');
   btn.innerHTML = '<span class="spinner"></span>'; btn.disabled = true;
 
-  let image_url = id ? (allProducts.find(p => p.id == id)?.image_url || '') : '';
-  if (prodImgFile) {
-    showProgress('prodBar', 'prodProgress', 40);
-    const filename = 'product_' + Date.now() + '.jpeg';
-    const { error: upErr } = await sb.storage.from(BUCKET).upload(filename, prodImgFile, { upsert: true, contentType: prodImgFile.type });
-    showProgress('prodBar', 'prodProgress', 100);
-    setTimeout(() => hideProgress('prodProgress'), 600);
-    if (upErr) { toast('Upload failed: ' + upErr.message, true); btn.textContent = 'Save Product'; btn.disabled = false; return; }
-    image_url = `${SUPABASE_URL}/storage/v1/object/public/${BUCKET}/${filename}`;
-  }
-
-  const payload = {
-    name,
+  const shared = {
     collection:  document.getElementById('prodColl').value,
     category:    document.getElementById('prodCat').value,
     description: document.getElementById('prodDesc').value,
-    image_url,
     featured:    document.getElementById('prodFeatured').checked,
     new_arrival: document.getElementById('prodNew').checked,
   };
 
-  let result;
-  if (id) {
-    result = await sb.from('products').update(payload).eq('id', id).select().single();
-  } else {
-    result = await sb.from('products').insert(payload).select().single();
+  try {
+    if (id) {
+      const name = document.getElementById('prodName').value.trim();
+      let image_url = allProducts.find(p => p.id == id)?.image_url || '';
+      if (prodImgFile) {
+        showProgress('prodBar', 'prodProgress', 40);
+        image_url = await uploadProductImage(prodImgFile);
+        showProgress('prodBar', 'prodProgress', 100);
+        setTimeout(() => hideProgress('prodProgress'), 600);
+      }
+      const payload = { name, ...shared, image_url };
+      const result = await sb.from('products').update(payload).eq('id', id).select().single();
+      if (result.error) throw new Error(result.error.message);
+      const idx = allProducts.findIndex(p => p.id == id);
+      allProducts[idx] = result.data;
+      renderProducts();
+      document.getElementById('prodModal').classList.remove('open');
+      toast('Product updated!');
+    } else if (prodQueue.length) {
+      const rows = [];
+      const total = prodQueue.length;
+      for (let i = 0; i < total; i++) {
+        const item = prodQueue[i];
+        showProgress('prodBar', 'prodProgress', Math.round(((i + 0.5) / total) * 100));
+        const image_url = await uploadProductImage(item.file);
+        const name = i === 0
+          ? (item.name || document.getElementById('prodName').value).trim()
+          : (item.name || '').trim();
+        rows.push({ name, ...shared, image_url });
+      }
+      showProgress('prodBar', 'prodProgress', 100);
+      setTimeout(() => hideProgress('prodProgress'), 600);
+      const result = await sb.from('products').insert(rows).select();
+      if (result.error) throw new Error(result.error.message);
+      allProducts.push(...result.data);
+      renderProducts();
+      document.getElementById('prodModal').classList.remove('open');
+      clearProdQueue();
+      toast(`${result.data.length} product${result.data.length === 1 ? '' : 's'} added!`);
+    } else {
+      toast('Upload at least one product image', true);
+    }
+  } catch (err) {
+    toast(err.message || 'Save failed', true);
   }
 
-  btn.textContent = 'Save Product'; btn.disabled = false;
-  if (result.error) { toast('Save failed: ' + result.error.message, true); return; }
-
-  if (id) {
-    const idx = allProducts.findIndex(p => p.id == id);
-    allProducts[idx] = result.data;
-  } else {
-    allProducts.push(result.data);
-  }
-  renderProducts();
-  document.getElementById('prodModal').classList.remove('open');
-  toast(id ? 'Product updated!' : 'Product added!');
+  updateProdSaveLabel();
+  btn.textContent = document.getElementById('prodId').value ? 'Save Product'
+    : (prodQueue.length > 1 ? `Save ${prodQueue.length} Products` : 'Save Product');
+  btn.disabled = false;
 });
 
 async function deleteProd(id, name) {
