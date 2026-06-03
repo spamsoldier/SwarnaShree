@@ -1,4 +1,4 @@
-# Swarna Shree Website — Content Management Guide
+# Swarna Shree Website — Content Management Guides
 
 ## Folder Structure
 
