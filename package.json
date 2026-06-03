@@ -1,0 +1,28 @@
+{
+  "name": "Swarna Shree-website",
+  "version": "1.0.0",
+  "main": "index.js",
+  "scripts": {
+    "config": "node scripts/generate-supabase-config.js",
+    "prestart": "npm run config",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Mandeepthenoncoder/Swarna Shreebyzinzuwadia.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Mandeepthenoncoder/Swarna Shreebyzinzuwadia/issues"
+  },
+  "homepage": "https://github.com/Mandeepthenoncoder/Swarna Shreebyzinzuwadia#readme",
+  "description": "Swarna Shree by Zinzuwadia — jewellery website",
+  "dependencies": {
+    "@supabase/ssr": "^0.9.0",
+    "@supabase/supabase-js": "^2.107.0",
+    "express": "^5.2.1",
+    "multer": "^2.1.1"
+  }
+}

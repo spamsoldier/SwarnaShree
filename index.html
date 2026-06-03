@@ -1,0 +1,403 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="Swarna Shree by Zinzuwadia — Exquisite Indian silver jewellery. Handcrafted sterling silver rings, necklaces, earrings and bridal sets. Book a private appointment." />
+  <title>Swarna Shree by Zinzuwadia</title>
+
+  <!-- Fonts (body copy) -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400;1,500;1,600&family=Montserrat:wght@300;400;500;600&display=swap" rel="stylesheet" />
+
+  <!-- AOS -->
+  <link rel="stylesheet" href="https://unpkg.com/aos@2.3.4/dist/aos.css" />
+
+  <!-- Custom CSS -->
+  <link rel="stylesheet" href="css/style.css?v=8" />
+</head>
+<body>
+
+  <!-- ══════════════════════════════════════════ -->
+  <!-- ANNOUNCEMENT BAR                           -->
+  <!-- ══════════════════════════════════════════ -->
+  <div class="announcement-bar" id="announcementBar">
+    <div class="marquee-track">
+      <span>Gold &nbsp;&nbsp;·&nbsp;&nbsp; Diamond &nbsp;&nbsp;·&nbsp;&nbsp; Polki &nbsp;&nbsp;·&nbsp;&nbsp; Silver &nbsp;&nbsp;·&nbsp;&nbsp; Complimentary Private Consultations &nbsp;&nbsp;·&nbsp;&nbsp; Book Your Appointment Today &nbsp;&nbsp;·&nbsp;&nbsp; Gold &nbsp;&nbsp;·&nbsp;&nbsp; Diamond &nbsp;&nbsp;·&nbsp;&nbsp; Polki &nbsp;&nbsp;·&nbsp;&nbsp; Silver &nbsp;&nbsp;·&nbsp;&nbsp; Complimentary Private Consultations &nbsp;&nbsp;·&nbsp;&nbsp; Book Your Appointment Today &nbsp;&nbsp;·&nbsp;&nbsp; Gold &nbsp;&nbsp;·&nbsp;&nbsp; Diamond &nbsp;&nbsp;·&nbsp;&nbsp; Polki &nbsp;&nbsp;·&nbsp;&nbsp; Silver &nbsp;&nbsp;</span>
+    </div>
+    <button class="ann-close" id="annClose" aria-label="Dismiss announcement">
+      <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 6 6 18M6 6l12 12"/></svg>
+    </button>
+  </div>
+
+  <!-- ══════════════════════════════════════════ -->
+  <!-- HEADER  (☰ | LOGO+MARK | icons)            -->
+  <!-- ══════════════════════════════════════════ -->
+  <header id="site-header">
+    <div class="header-inner">
+
+      <!-- LEFT: Hamburger -->
+      <div class="header-left">
+        <button class="hamburger" id="hamburger" aria-label="Open menu" aria-expanded="false" aria-controls="sideMenu">
+          <span class="ham-line"></span>
+          <span class="ham-line"></span>
+          <span class="ham-line"></span>
+        </button>
+      </div>
+
+      <!-- CENTER: Logo — brand mark + wordmark always together -->
+      <a href="#" class="header-logo" aria-label="Swarna Shree by Zinzuwadia — Home"
+         onclick="event.preventDefault();if(window.showHomePage)window.showHomePage();else window.location.hash=''">
+        <img src="assets/logo/logo-mark.png" alt="" class="logo-mark-static" aria-hidden="true" />
+        <img src="assets/logo/logo-full.png?v=2"  alt="Swarna Shree by Zinzuwadia" class="logo-wordmark-static" />
+      </a>
+
+      <!-- RIGHT: Actions -->
+      <div class="header-right">
+        <button class="nav-icon-btn" id="openAppointmentHeader" aria-label="Book appointment">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="3" y="4" width="18" height="18" rx="2"/><path d="M16 2v4M8 2v4M3 10h18"/></svg>
+        </button>
+      </div>
+
+    </div>
+  </header>
+
+  <!-- ══════════════════════════════════════════ -->
+  <!-- SIDE MENU                                  -->
+  <!-- ══════════════════════════════════════════ -->
+  <div class="side-menu" id="sideMenu" aria-hidden="true" role="dialog" aria-label="Navigation menu">
+
+    <div class="side-menu-header">
+      <button class="side-menu-close" id="sideMenuClose" aria-label="Close menu">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M18 6 6 18M6 6l12 12"/></svg>
+      </button>
+      <a href="/" class="side-menu-logo">
+        <img src="assets/logo/logo-mark.png" alt="Swarna Shree" />
+      </a>
+    </div>
+
+    <nav class="side-menu-nav" aria-label="Main navigation">
+      <a href="#collections" class="side-menu-item" data-close>
+        <span>Collections</span>
+        <svg class="chevron" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="m9 18 6-6-6-6"/></svg>
+      </a>
+      <a href="#jewellery" class="side-menu-item" data-close>
+        <span>Jewellery</span>
+        <svg class="chevron" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="m9 18 6-6-6-6"/></svg>
+      </a>
+      <a href="#our-story" class="side-menu-item" onclick="event.preventDefault();window.navigate('our-story')" data-close>
+        <span>Our Story</span>
+        <svg class="chevron" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="m9 18 6-6-6-6"/></svg>
+      </a>
+    </nav>
+
+    <div class="side-menu-divider"></div>
+
+    <div class="side-menu-secondary">
+      <button class="side-menu-secondary-item" id="openAppointmentSideMenu">
+        <span class="secondary-icon">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="3" y="4" width="18" height="18" rx="2"/><path d="M16 2v4M8 2v4M3 10h18"/></svg>
+        </span>
+        <span>Book an Appointment</span>
+      </button>
+    </div>
+
+    <div class="side-menu-bottom">
+      <p class="side-menu-brand-name">Swarna Shree</p>
+      <p class="side-menu-brand-sub">by Zinzuwadia</p>
+    </div>
+
+  </div>
+
+  <div class="side-menu-backdrop" id="sideMenuBackdrop"></div>
+
+  <!-- ══════════════════════════════════════════ -->
+  <!-- SEARCH OVERLAY                             -->
+  <!-- ══════════════════════════════════════════ -->
+  <div class="search-overlay" id="searchOverlay" aria-hidden="true">
+    <button class="search-close" id="searchClose" aria-label="Close search">
+      <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M18 6 6 18M6 6l12 12"/></svg>
+    </button>
+    <div class="search-inner">
+      <p class="search-label">What are you looking for?</p>
+      <div class="search-input-wrap">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/></svg>
+        <input type="text" class="search-input" id="searchInput" placeholder="Search collections, necklaces, kadas…" autocomplete="off" />
+      </div>
+      <div class="search-results" id="searchResults"></div>
+    </div>
+  </div>
+
+  <!-- ══════════════════════════════════════════════════════ -->
+  <!-- MAIN HOME CONTENT                                      -->
+  <!-- ══════════════════════════════════════════════════════ -->
+  <main id="mainContent">
+
+  <!-- ══════════════════════════════════════════ -->
+  <!-- HERO — single banner                       -->
+  <!-- ══════════════════════════════════════════ -->
+  <section class="hero-section" aria-label="Swarna Shree by Zinzuwadia">
+    <div class="hero-bg" id="heroBgDesktop" style="background-image:url('assets/products/hero.jpeg')"></div>
+    <div class="hero-bg hero-bg-mobile" id="heroBgMobile" style="background-image:url('assets/products/hero.jpeg')"></div>
+    <div class="hero-overlay"></div>
+    <div class="hero-pattern-overlay"></div>
+    <div class="hero-content">
+      <p class="hero-eyebrow" id="heroEyebrow">Zinzuwadia Jewellers Presents</p>
+      <h1 class="hero-title" id="heroTitle">Swarna <em>Shree</em></h1>
+      <p class="hero-subtitle" id="heroSubtitle"><span class="hero-tagline">Where Every Instalment Grows Into Gold</span><span class="hero-byline">by Zinzuwadia Jewellers</span></p>
+      <div class="hero-actions">
+        <button type="button" class="btn-hero-primary" id="heroJoinScheme">Join the Scheme</button>
+        <a href="#collections" class="btn-hero-ghost">Explore Plans</a>
+      </div>
+    </div>
+    <div class="hero-scroll-cue" aria-hidden="true">
+      <div class="scroll-line-wrap"><span class="scroll-line-inner"></span></div>
+      <span class="scroll-label">Scroll</span>
+    </div>
+  </section>
+
+  <!-- ══════════════════════════════════════════ -->
+  <!-- COLLECTIONS GRID                           -->
+  <!-- ══════════════════════════════════════════ -->
+  <section class="collections-section" id="collections">
+    <div class="section-header" data-aos="fade-up">
+      <h2 class="section-title">Our Collections</h2>
+    </div>
+    <div class="collections-grid" id="collectionsGrid">
+      <!-- Populated by data-loader.js -->
+    </div>
+  </section>
+
+  <!-- ══════════════════════════════════════════ -->
+  <!-- EDITORIAL 2-COL                            -->
+  <!-- ══════════════════════════════════════════ -->
+  <section class="editorial-section">
+    <div class="editorial-grid">
+      <div class="editorial-image" data-aos="fade-right">
+        <div class="editorial-img-bg">
+          <img src="assets/products/p02.jpeg" alt="Swarna Shree Silver Jewellery" loading="lazy" class="editorial-bg-img" />
+        </div>
+      </div>
+      <div class="editorial-content" data-aos="fade-left" data-aos-delay="120">
+        <h2 class="editorial-title">Where Every<br /><em>Piece Begins</em></h2>
+        <p class="editorial-body">Every piece at Swarna Shree begins with a karigar, from a different part of India. Each one brings their own skill, their own way of making. Swarna Shree brings that work together, into pieces you can wear every day and keep close to your heart.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ══════════════════════════════════════════ -->
+  <!-- PRODUCTS / JEWELLERY                       -->
+  <!-- ══════════════════════════════════════════ -->
+  <section class="products-section" id="jewellery">
+    <div class="section-header" data-aos="fade-up">
+      <h2 class="section-title">New Arrivals</h2>
+    </div>
+
+    <div class="filter-bar" id="filterBar" data-aos="fade-up" data-aos-delay="60" role="tablist">
+      <button class="filter-btn active" data-filter="all" role="tab" aria-selected="true">All</button>
+    </div>
+
+    <div class="products-grid" id="productsGrid">
+      <!-- Populated by data-loader.js -->
+    </div>
+  </section>
+
+  <!-- ══════════════════════════════════════════ -->
+  <!-- HERITAGE DARK SECTION                      -->
+  <!-- ══════════════════════════════════════════ -->
+  <section class="heritage-section" id="heritage">
+    <div class="heritage-pattern-bg"></div>
+    <div class="heritage-content" data-aos="fade-up">
+      <img src="assets/logo/logo-mark.png" alt="" class="heritage-crest" />
+      <h2 class="heritage-title">Born from a<br /><em>Legacy of Trust</em></h2>
+      <p class="heritage-body">Swarna Shree comes from Zinzuwadia — a name trusted by families in CG Road and Shivranjani for years. Built on experience, relationships and consistency, that trust is what defines everything. Swarna Shree carries that same foundation forward, in pieces made to be worn and kept close to your heart.</p>
+    </div>
+  </section>
+
+  <!-- ══════════════════════════════════════════ -->
+  <!-- APPOINTMENT CTA BAND                       -->
+  <!-- ══════════════════════════════════════════ -->
+  <section class="appt-cta-section">
+    <div class="appt-cta-inner" data-aos="fade-up">
+      <h2 class="appt-cta-title">From India's heart<br />to your heart.</h2>
+      <p class="appt-cta-body">Swarna Shree is now live at Zinzuwadia, CG Road and Shivranjani. Visit and experience it in person.</p>
+      <button class="btn-primary-lg" id="openAppointmentCTA">Book Your Private Appointment</button>
+    </div>
+  </section>
+
+  <!-- ══════════════════════════════════════════ -->
+  <!-- STORE LOCATOR                              -->
+  <!-- ══════════════════════════════════════════ -->
+  <section class="stores-section">
+    <div class="stores-inner">
+      <h2 class="stores-heading">Find Us</h2>
+      <div class="stores-grid">
+
+        <article class="store-card" data-aos="fade-up" data-aos-delay="0">
+          <p class="store-city">CG Road</p>
+          <p class="store-name">Zinzuwadia</p>
+          <span class="store-star" aria-hidden="true">&#10022;</span>
+          <p class="store-street">CG Road</p>
+          <p class="store-state">Gujarat &nbsp;·&nbsp; 380009</p>
+          <a class="store-directions"
+             href="https://maps.app.goo.gl/K2P6a3TEMy9mcytN9"
+             target="_blank" rel="noopener noreferrer">
+            Get Directions <span aria-hidden="true">→</span>
+          </a>
+        </article>
+
+        <div class="stores-divider" aria-hidden="true"></div>
+
+        <article class="store-card" data-aos="fade-up" data-aos-delay="120">
+          <p class="store-city">Shivranjani</p>
+          <p class="store-name">Zinzuwadia</p>
+          <span class="store-star" aria-hidden="true">&#10022;</span>
+          <p class="store-street">Shivranjani</p>
+          <p class="store-state">Gujarat&nbsp;·&nbsp; 380015</p>
+          <a class="store-directions"
+             href="https://maps.app.goo.gl/kZ56iEYe3tYFQj3p8"
+             target="_blank" rel="noopener noreferrer">
+            Get Directions <span aria-hidden="true">→</span>
+          </a>
+        </article>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- ══════════════════════════════════════════ -->
+  <!-- FOOTER                                     -->
+  <!-- ══════════════════════════════════════════ -->
+  <footer class="site-footer" id="about">
+    <div class="footer-inner">
+      <div class="footer-top">
+
+        <div class="footer-brand">
+          <img src="assets/logo/logo-mark.png" alt="" class="footer-mark" />
+          <p class="footer-wordmark">Swarna Shree<br /><span>by Zinzuwadia</span></p>
+          <p class="footer-tagline">Fine Jewellery. Enduring Stories.</p>
+        </div>
+
+        <div class="footer-col">
+          <h3 class="footer-heading">Collections</h3>
+          <ul id="footerCollectionsList">
+            <!-- Populated by data-loader.js from Supabase -->
+          </ul>
+        </div>
+
+        <div class="footer-col">
+          <h3 class="footer-heading">Jewellery</h3>
+          <ul id="footerJewelleryList">
+            <!-- Populated by data-loader.js (admin categories / products) -->
+          </ul>
+        </div>
+
+        <div class="footer-col">
+          <h3 class="footer-heading">Visit Us</h3>
+          <ul>
+            <li><a href="#" onclick="openAppointmentModal();return false">Book an Appointment</a></li>
+            <li><a href="#our-story" onclick="event.preventDefault();window.navigate('our-story')">Our Story</a></li>
+            <li><a href="#">Craftsmanship</a></li>
+            <li><a href="#">Contact</a></li>
+          </ul>
+        </div>
+
+        <div class="footer-newsletter-col">
+          <h3 class="footer-heading">Stay Connected</h3>
+          <p>Be first to discover new collections and exclusive events.</p>
+          <form class="newsletter-form" onsubmit="handleNewsletterSubmit(event)">
+            <input type="email" placeholder="Your email address" required class="newsletter-input" />
+            <button type="submit" class="newsletter-btn">Join</button>
+          </form>
+          <div class="footer-social">
+            <a href="https://www.instagram.com/zinzuwadiajewellersofficial/?hl=en" target="_blank" rel="noopener noreferrer" aria-label="Instagram — Zinzuwadia Jewellers" class="social-link">
+              <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="2" y="2" width="20" height="20" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="1" fill="currentColor" stroke="none"/></svg>
+            </a>
+            <a href="https://www.facebook.com/ZJIndia/" target="_blank" rel="noopener noreferrer" aria-label="Facebook — Zinzuwadia Jewellers" class="social-link">
+              <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"/></svg>
+            </a>
+          </div>
+        </div>
+
+      </div>
+
+      <div class="footer-bottom">
+        <p>&copy; 2025 Swarna Shree by Zinzuwadia. All rights reserved.</p>
+        <div class="footer-legal-links">
+          <a href="#privacy-policy" onclick="window.navigate('privacy-policy')">Privacy Policy</a>
+          <a href="#">Terms of Service</a>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  </main><!-- /#mainContent -->
+
+  <!-- ══════════════════════════════════════════════════════ -->
+  <!-- INNER PAGE — populated by router.js                   -->
+  <!-- ══════════════════════════════════════════════════════ -->
+  <div id="innerPage" hidden></div>
+
+  <!-- ══════════════════════════════════════════ -->
+  <!-- APPOINTMENT MODAL                          -->
+  <!-- ══════════════════════════════════════════ -->
+  <div class="modal-overlay" id="appointmentModal" role="dialog" aria-modal="true" aria-labelledby="modalHeading">
+    <div class="modal-card">
+
+      <button class="modal-close" id="closeAppointmentModal" aria-label="Close">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M18 6 6 18M6 6l12 12"/></svg>
+      </button>
+
+      <div id="modalFormInner">
+        <div class="modal-card-brand">
+          <img src="assets/logo/logo-mark.png" alt="" class="modal-crest" />
+          <p class="modal-eyebrow">Private Consultation</p>
+        </div>
+        <h2 class="modal-heading" id="modalHeading">Book an Appointment</h2>
+        <p class="modal-hint">We'll call you back to confirm.</p>
+
+        <form class="appointment-form" id="appointmentForm" novalidate>
+          <div class="form-group">
+            <label for="appt-name">Full Name <em>*</em></label>
+            <input type="text" id="appt-name" name="name" placeholder="Your full name" required autocomplete="name" />
+          </div>
+          <div class="form-group">
+            <label for="appt-phone">Phone Number <em>*</em></label>
+            <input type="tel" id="appt-phone" name="phone" placeholder="+91 99999 99999" required autocomplete="tel" />
+          </div>
+          <button type="submit" class="btn-form-submit">Request Appointment</button>
+        </form>
+      </div>
+
+      <div class="modal-success" id="modalSuccess" hidden>
+        <img src="assets/logo/logo-mark.png" alt="" class="success-crest" />
+        <h3>Thank You</h3>
+        <p>We'll be in touch shortly to confirm your appointment.</p>
+        <button class="btn-outline" onclick="closeAppointmentModal()">Close</button>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- ══════════════════════════════════════════ -->
+  <!-- WHATSAPP FLOAT                             -->
+  <!-- ══════════════════════════════════════════ -->
+  <a class="whatsapp-float" id="whatsappFloat" href="https://wa.me/919999999999" target="_blank" rel="noopener noreferrer" aria-label="Chat on WhatsApp">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32" width="28" height="28" fill="currentColor">
+      <path d="M16 2C8.268 2 2 8.268 2 16c0 2.49.651 4.83 1.788 6.858L2 30l7.335-1.763A13.93 13.93 0 0 0 16 30c7.732 0 14-6.268 14-14S23.732 2 16 2zm0 25.5a11.44 11.44 0 0 1-5.826-1.594l-.418-.248-4.352 1.046 1.079-4.24-.272-.435A11.47 11.47 0 0 1 4.5 16C4.5 9.596 9.596 4.5 16 4.5S27.5 9.596 27.5 16 22.404 27.5 16 27.5zm6.29-8.618c-.344-.172-2.036-1.004-2.351-1.118-.316-.115-.546-.172-.776.172-.23.344-.89 1.118-1.091 1.348-.2.23-.402.258-.746.086-.344-.172-1.454-.536-2.77-1.708-1.023-.913-1.713-2.04-1.913-2.384-.2-.344-.021-.53.15-.701.155-.154.344-.402.516-.603.172-.2.23-.344.344-.574.115-.23.057-.43-.029-.603-.086-.172-.776-1.87-1.063-2.562-.28-.672-.564-.58-.776-.591l-.661-.011c-.23 0-.603.086-.918.43s-1.205 1.177-1.205 2.87 1.233 3.33 1.405 3.56c.172.23 2.428 3.71 5.884 5.203.822.355 1.464.567 1.964.726.825.263 1.576.226 2.169.137.661-.099 2.036-.832 2.323-1.635.287-.803.287-1.492.2-1.635-.086-.143-.316-.23-.66-.402z"/>
+    </svg>
+    <span class="whatsapp-float-label">Chat with us</span>
+  </a>
+
+  <!-- ══════════════════════════════════════════ -->
+  <!-- SCRIPTS                                    -->
+  <!-- ══════════════════════════════════════════ -->
+  <script src="js/supabase-config.js?v=1"></script>
+  <script src="https://unpkg.com/aos@2.3.4/dist/aos.js"></script>
+  <script src="js/data-loader.js?v=8"></script>
+  <script src="js/router.js?v=4"></script>
+  <script src="js/main.js"></script>
+
+</body>
+</html>

@@ -1,0 +1,9 @@
+{
+  "version": 2,
+  "buildCommand": "node scripts/generate-supabase-config.js",
+  "outputDirectory": ".",
+  "routes": [
+    { "handle": "filesystem" },
+    { "src": "/(.*)", "dest": "/index.html" }
+  ]
+}

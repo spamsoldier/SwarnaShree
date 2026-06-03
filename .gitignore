@@ -1,0 +1,29 @@
+# Claude internal config
+.claude/
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Editor
+.vscode/
+*.swp
+
+# Node
+node_modules/
+package-lock.json
+.env.local
+
+# Large source files not needed for website
+Swarna Shree by zinzuwadia images/
+PHOTOH SHOOT 222.pdf
+PHOTOS13.pdf
+Silver jewellery Photoshoot 2.xlsx
+build-verify.py
+verify-mapping.html
+generate_verify.py
+
+# Admin server runs locally only
+admin-server.js
+
+.vercel

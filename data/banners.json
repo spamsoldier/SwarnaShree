@@ -1,0 +1,29 @@
+[
+  {
+    "id": 1,
+    "collection": "New Collection",
+    "title": "Bloom",
+    "subtitle": "Where tradition meets contemporary elegance",
+    "cta_text": "Book an Appointment",
+    "image": "content/banners/banner-1.jpg",
+    "text_color": "light"
+  },
+  {
+    "id": 2,
+    "collection": "Bridal Edit",
+    "title": "Eternal",
+    "subtitle": "Timeless jewellery crafted for your forever moments",
+    "cta_text": "Book an Appointment",
+    "image": "content/banners/banner-2.jpg",
+    "text_color": "light"
+  },
+  {
+    "id": 3,
+    "collection": "Heritage",
+    "title": "Riwayat",
+    "subtitle": "Rooted in tradition, reimagined for today",
+    "cta_text": "Book an Appointment",
+    "image": "content/banners/banner-3.jpg",
+    "text_color": "light"
+  }
+]
