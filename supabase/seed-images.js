@@ -32,7 +32,7 @@ function loadEnvLocal() {
 const env = loadEnvLocal();
 const SUPABASE_URL      = env.NEXT_PUBLIC_SUPABASE_URL;
 const SUPABASE_ANON_KEY = env.NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY;
-const BUCKET            = 'Swarna Shree';
+const BUCKET            = 'swarnashree';
 const ASSETS_DIR        = path.join(__dirname, '..', 'assets', 'products');
 
 // Parse --email and --password from CLI args

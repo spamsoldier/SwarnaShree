@@ -31,10 +31,9 @@ create table if not exists public.settings (
 );
 
 -- ── Storage bucket ───────────────────────────────────
--- Existing project? Create bucket "Swarna Shree", copy objects from "chandi",
--- then update settings URLs (/chandi/ → /Swarna Shree/) before removing old bucket.
+-- Use existing bucket "swarnashree" (already public in dashboard)
 insert into storage.buckets (id, name, public)
-values ('Swarna Shree', 'Swarna Shree', true)
+values ('swarnashree', 'swarnashree', true)
 on conflict (id) do nothing;
 
 -- ── Row Level Security ───────────────────────────────
@@ -65,18 +64,18 @@ create policy "auth_all_settings" on public.settings
   for all using (auth.role() = 'authenticated')
   with check (auth.role() = 'authenticated');
 
--- Storage policies
+-- Storage policies for your existing "swarnashree" bucket
 create policy "public_read_storage" on storage.objects
-  for select using (bucket_id = 'Swarna Shree');
+  for select using (bucket_id = 'swarnashree');
 
 create policy "auth_upload_storage" on storage.objects
-  for insert with check (bucket_id = 'Swarna Shree' and auth.role() = 'authenticated');
+  for insert with check (bucket_id = 'swarnashree' and auth.role() = 'authenticated');
 
 create policy "auth_update_storage" on storage.objects
-  for update using (bucket_id = 'Swarna Shree' and auth.role() = 'authenticated');
+  for update using (bucket_id = 'swarnashree' and auth.role() = 'authenticated');
 
 create policy "auth_delete_storage" on storage.objects
-  for delete using (bucket_id = 'Swarna Shree' and auth.role() = 'authenticated');
+  for delete using (bucket_id = 'swarnashree' and auth.role() = 'authenticated');
 
 -- ── Seed: Collections ────────────────────────────────
 insert into public.collections (name, tagline, description, image_url, display_order) values
