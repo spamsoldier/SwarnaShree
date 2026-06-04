@@ -1,5 +1,5 @@
 /**
- * Swarna Shree — Supabase Image Seeder
+ * Zinzuwadia Jewellers — Supabase Image Seeder
  * Uploads all local product images to Supabase Storage
  * and updates the image_url on each product row.
  *

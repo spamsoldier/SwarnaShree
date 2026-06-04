@@ -1,9 +1,9 @@
-# Swarna Shree Website — Content Management Guides
+# Zinzuwadia Jewellers Website — Content Management Guides
 
 ## Folder Structure
 
 ```
-Swarna Shree-website/
+zinzuwadia-jewellers-website/
 │
 ├── index.html                  ← Main website file (open this in browser)
 │
@@ -160,7 +160,7 @@ If you have VS Code installed:
 
 If you have Python:
 ```
-cd Swarna Shree-website
+cd zinzuwadia-jewellers-website
 python -m http.server 5500
 ```
 Then open `http://localhost:5500`
@@ -173,7 +173,7 @@ Then open `http://localhost:5500`
 
 **Netlify (recommended, free):**
 1. Go to https://netlify.com
-2. Drag and drop the entire `Swarna Shree-website` folder onto the deploy area
+2. Drag and drop the entire project folder onto the deploy area
 3. Your site is live instantly with a free URL
 
 **GitHub Pages:** Push the folder to a GitHub repo and enable Pages in settings.

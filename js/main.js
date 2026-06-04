@@ -1,5 +1,5 @@
 /* ════════════════════════════════════════════════════
-   Swarna Shree — main.js
+   Zinzuwadia Jewellers — main.js
    ════════════════════════════════════════════════════ */
 'use strict';
 
@@ -23,11 +23,13 @@ if (sessionStorage.getItem('ann-closed')) {
 
 annClose?.addEventListener('click', dismissAnnBar);
 
-/* ── HEADER SCROLL ───────────────────────────────── */
+/* ── HEADER SCROLL (transparent over hero, solid on scroll) ─── */
 const header = document.getElementById('site-header');
-window.addEventListener('scroll', () => {
+function updateHeader() {
   header.classList.toggle('scrolled', window.scrollY > 60);
-}, { passive: true });
+}
+window.addEventListener('scroll', updateHeader, { passive: true });
+updateHeader();
 
 /* ════════════════════════════════════════════════════
    SIDE MENU (Messika-style left drawer)

@@ -1,5 +1,5 @@
 {
-  "name": "Swarna Shree-website",
+  "name": "zinzuwadia-jewellers-website",
   "version": "1.0.0",
   "main": "index.js",
   "scripts": {
@@ -18,7 +18,7 @@
     "url": "https://github.com/Mandeepthenoncoder/Swarna Shreebyzinzuwadia/issues"
   },
   "homepage": "https://github.com/Mandeepthenoncoder/Swarna Shreebyzinzuwadia#readme",
-  "description": "Swarna Shree by Zinzuwadia — jewellery website",
+  "description": "Zinzuwadia Jewellers — jewellery website",
   "dependencies": {
     "@supabase/ssr": "^0.9.0",
     "@supabase/supabase-js": "^2.107.0",

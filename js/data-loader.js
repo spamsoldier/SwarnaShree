@@ -1,5 +1,5 @@
 /* ═══════════════════════════════════════════════════════════
-   Swarna Shree — data-loader.js
+   Zinzuwadia Jewellers — data-loader.js
    Loads products & collections from Supabase.
    Falls back to embedded demo data if Supabase is unavailable.
    ═══════════════════════════════════════════════════════════ */
@@ -43,7 +43,7 @@ document.addEventListener('DOMContentLoaded', async () => {
     applySettings(settings);
     initWithData(products, collections, settings);
   } catch (err) {
-    console.warn('[Swarna Shree] Supabase load failed, using fallback.', err);
+    console.warn('[Zinzuwadia Jewellers] Supabase load failed, using fallback.', err);
     initWithData(FALLBACK_PRODUCTS, FALLBACK_COLLECTIONS, []);
   }
 });

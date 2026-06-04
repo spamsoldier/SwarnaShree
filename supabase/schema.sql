@@ -1,5 +1,5 @@
 -- ══════════════════════════════════════════════════
--- Swarna Shree by Zinzuwadia — Supabase Schema
+-- Zinzuwadia Jewellers — Supabase Schema
 -- Run this in Supabase Dashboard → SQL Editor
 -- ══════════════════════════════════════════════════
 
@@ -91,10 +91,10 @@ insert into public.settings (key, value) values
   ('cta_subtext', 'Visit us at our store'),
   ('address',     'Zinzuwadia, Ahmedabad, Gujarat, India'),
   ('phone',       '+91 99999 99999'),
-  ('email',       'info@Swarna Shree.com'),
+  ('email',       'info@zinzuwadiajewellers.com'),
   ('hero_eyebrow',  'Zinzuwadia Jewellers Presents'),
-  ('hero_title',    'Swarna <em>Shree</em>'),
-  ('hero_subtitle', '<span class="hero-tagline">Where Every Instalment Grows Into Gold</span><span class="hero-byline">by Zinzuwadia Jewellers</span>')
+  ('hero_title',    'Zinzuwadia <em>Jewellers</em>'),
+  ('hero_subtitle', '<span class="hero-tagline">Where Every Instalment Grows Into Gold</span>')
 on conflict (key) do nothing;
 
 -- ── Seed: Products ───────────────────────────────────

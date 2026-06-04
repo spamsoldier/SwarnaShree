@@ -1,5 +1,5 @@
 /* ═══════════════════════════════════════════════════════════
-   Swarna Shree — router.js
+   Zinzuwadia Jewellers — router.js
    Hash-based SPA router
    Routes:
      #collection/:id  → Collection detail page
@@ -9,10 +9,10 @@
 'use strict';
 
 const ROUTER_GRADIENTS = [
-  'linear-gradient(135deg,#88051E 0%,#620100 100%)',
-  'linear-gradient(135deg,#2c0a0e 0%,#620100 60%,#191311 100%)',
-  'linear-gradient(135deg,#191311 0%,#3a0a0d 50%,#88051E 100%)',
-  'linear-gradient(135deg,#620100 0%,#88051E 100%)',
+  'linear-gradient(160deg,#1C1C24 0%,#2D2C38 100%)',
+  'linear-gradient(160deg,#2D2C38 0%,#1C1C24 100%)',
+  'linear-gradient(160deg,#1C1C24 0%,#3A2A1A 100%)',
+  'linear-gradient(160deg,#28201A 0%,#1C1C24 100%)',
 ];
 
 /* ── Exposed globals ─────────────────────────────────────── */
@@ -105,7 +105,7 @@ function showCollectionPage(id) {
         <p class="hero-eyebrow">${rEsc(col.tagline || '')}</p>
         <h1 class="coll-page-title">${rEsc(col.name)}</h1>
         <p class="coll-page-desc">${rEsc(col.description || '')}</p>
-        <button class="btn-hero" onclick="window.openAppointmentModal('${rAttr(col.name)}')">
+        <button class="btn-hero-primary" onclick="window.openAppointmentModal('${rAttr(col.name)}')">
           Book an Appointment
         </button>
       </div>
@@ -167,7 +167,7 @@ function buildProductCardHTML(product, index, cols) {
           ? `<img src="${rEsc(imgUrl)}" alt="${rEsc(product.name)}" loading="lazy" />`
           : `<div class="product-placeholder">
                <div class="product-placeholder-inner">
-                 <img src="assets/logo/logo-mark.png" alt="" />
+                 <img src="logo.png" alt="" />
                  <span>${rEsc(product.category || 'Jewellery')}</span>
                </div>
              </div>`
@@ -199,16 +199,15 @@ function showOurStoryPage() {
 
     <div class="our-story-page">
       <div class="our-story-hero">
-        <img src="assets/logo/logo-mark.png" alt="" class="our-story-crest" />
-        <h1 class="our-story-title">India ke dil se<br /><em>aapke dil tak</em></h1>
+        <img src="logo.png" alt="" class="our-story-crest" />
+        <h1 class="our-story-title">The Story of<br /><em>Zinzuwadia</em></h1>
       </div>
 
       <div class="our-story-body">
-        <p>Swarna Shree brings you pieces from different parts of India.</p>
-        <p>From the hands of karigars, from places known for their own way of making.</p>
-        <p>Now, all of it comes closer to you — in something you can wear, every day.</p>
-        <p>Not just for occasions, but for moments that are your own.</p>
-        <p>From India&#8217;s heart, to your heart.</p>
+        <p>We began as hands that crafted for others. Today, we craft for the ones who matter most — the brides, the families, the generations yet to come.</p>
+        <p>For over five decades, Zinzuwadia has stood for something simple yet rare: jewellery that feels like it has always belonged to you.</p>
+        <p>From the quiet corners of Ahmedabad to the hearts of those who wear it, every piece carries the same promise — that beauty, when made with care, becomes a legacy.</p>
+        <p>This is not just jewellery. This is the story we continue to write, together.</p>
       </div>
 
       <div class="our-story-cta">
@@ -239,7 +238,7 @@ function showPrivacyPage() {
 
         <section class="privacy-section">
           <h2>1. Who We Are</h2>
-          <p>Swarna Shree by Zinzuwadia ("we", "us", "our") is a fine jewellery brand operated by Zinzuwadia Jewellers. For any privacy-related questions, contact us at <a href="mailto:info@Swarna Shree.com">info@Swarna Shree.com</a> or <a href="tel:+919999999999">+91 99999 99999</a>.</p>
+          <p>Zinzuwadia Jewellers ("we", "us", "our") operates this website. For any privacy-related questions, contact us at <a href="mailto:info@zinzuwadiajewellers.com">info@zinzuwadiajewellers.com</a> or <a href="tel:+919999999999">+91 99999 99999</a>.</p>
         </section>
 
         <section class="privacy-section">
@@ -293,7 +292,7 @@ function showPrivacyPage() {
             <li>Request correction or deletion of your data</li>
             <li>Withdraw consent at any time</li>
           </ul>
-          <p>To exercise any of these rights, please email us at <a href="mailto:info@Swarna Shree.com">info@Swarna Shree.com</a>.</p>
+          <p>To exercise any of these rights, please email us at <a href="mailto:info@zinzuwadiajewellers.com">info@zinzuwadiajewellers.com</a>.</p>
         </section>
 
         <section class="privacy-section">
@@ -309,9 +308,9 @@ function showPrivacyPage() {
         <section class="privacy-section">
           <h2>10. Contact</h2>
           <p>For any questions about this Privacy Policy or how we handle your data, please contact:</p>
-          <p><strong>Zinzuwadia Jewellers — Swarna Shree</strong><br />
+          <p><strong>Zinzuwadia Jewellers</strong><br />
           Phone: <a href="tel:+919999999999">+91 99999 99999</a><br />
-          Email: <a href="mailto:info@Swarna Shree.com">info@Swarna Shree.com</a></p>
+          Email: <a href="mailto:info@zinzuwadiajewellers.com">info@zinzuwadiajewellers.com</a></p>
         </section>
 
       </div>
