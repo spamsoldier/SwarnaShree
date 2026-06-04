@@ -119,7 +119,7 @@ input,select,textarea{font-family:inherit}
 .header-logo{display:flex;align-items:center;justify-content:center}
 .logo-mark-static{display:none}
 .logo-wordmark-static{
-  height:46px;width:auto;object-fit:contain;display:block;
+  height:150px;width:auto;object-fit:contain;display:block;
   filter:brightness(0) invert(1);
   transition:filter var(--dur) var(--ease);
 }
