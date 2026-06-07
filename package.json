@@ -4,6 +4,8 @@
   "main": "index.js",
   "scripts": {
     "config": "node scripts/generate-supabase-config.js",
+    "dev": "npm run config && npx --yes serve . -l 3000",
+    "start": "npx --yes serve . -l 3000",
     "prestart": "npm run config",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
